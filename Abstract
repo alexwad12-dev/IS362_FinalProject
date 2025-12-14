@@ -1,0 +1,98 @@
+
+### Phase 1: Setup & Data Acquisition (The "ET" in ETL)
+
+**Goal:** Collect the Billboard Year-End charts and lyrics into a usable dataset.
+
+* **Task 1.1: GitHub Repo Setup**
+
+  * Create a public repo.
+  * Include a `.gitignore` file for any API tokens.
+  * *Satisfies: Reproducible code.*
+
+* **Task 1.2: Scrape Billboard Data (The "Skeleton")**
+
+  * Use `BeautifulSoup` or `pandas.read_html` to scrape Year-End Hot 100 for 2013–2023.
+  * Extract: Rank, Song Title, Artist.
+  * *Satisfies: Data Source #1.*
+
+* **Task 1.3: Genius Lyrics (The "Sentiment")**
+
+  * Use the `lyricsgenius` library to fetch lyrics for the songs.
+  * *Satisfies: Strengthening the "New Feature" requirement.*
+
+* **Note:** Spotify Audio Features retrieval is **skipped** due to API deprecation and rate-limit constraints. The analysis focuses exclusively on lyric sentiment.
+
+---
+
+### Phase 2: Transformation & Cleaning (The "T" in ETL)
+
+**Goal:** Turn raw lyrics and metadata into a clean dataset ready for analysis.
+
+* **Task 2.1: Lyric Sentiment Analysis**
+
+  * Use an NLP library not heavily covered in class (e.g., `TextBlob` or `NLTK` VADER) to calculate a sentiment score for each song.
+  * Store the compound score (or polarity) as the “Lyric Sentiment” feature.
+  * *Satisfies: “New feature not covered in class.”*
+
+* **Task 2.2: Merge and Clean Data**
+
+  * Combine Billboard metadata with lyric sentiment scores into a single DataFrame.
+  * Drop songs missing lyrics or sentiment scores if needed.
+  * *Satisfies: Data analytics workflow.*
+
+* **Task 2.3: Data Transformation**
+
+  * Convert the 'Year' column to a proper datetime object.
+  * Optionally create subsets (e.g., top 10 songs of each year vs. all songs).
+  * *Satisfies: At least one data transformation operation.*
+
+---
+
+### Phase 3: Analysis & Visualization (The "L" and Analysis)
+
+**Goal:** Validate the hypothesis and demonstrate trends using lyric sentiment.
+
+* **Task 3.1: Data Validation Graphic**
+
+  * Create a histogram or boxplot of lyric sentiment scores.
+  * Check for outliers and missing values.
+  * *Satisfies: Graphic that describes/validates data.*
+
+* **Task 3.2: Aggregation**
+
+  * Group data by year and calculate mean lyric sentiment per year.
+  * Optionally, calculate mean sentiment for top 10 songs per year.
+  * *Satisfies: Grouping or aggregation task.*
+
+* **Task 3.3: Conclusion Graphic**
+
+  * Plot a line chart (or dual-line if including top 10 vs all songs) showing average lyric sentiment over time.
+  * Annotate significant cultural events (e.g., pandemic start in 2020).
+  * *Satisfies: Graphic supporting the conclusion.*
+
+* **Task 3.4: Statistical Analysis**
+
+  * Compute Pearson correlation (or similar) between lyric sentiment and rank or other numeric metrics.
+  * *Satisfies: Statistical analysis supporting the conclusion.*
+
+---
+
+### Phase 4: Presentation & Final Polish
+
+**Goal:** Ensure reproducibility and clarity for grading.
+
+* **Task 4.1: Reproducibility Check**
+
+  * Save the final cleaned dataset to CSV.
+  * Ensure notebook runs top-to-bottom without errors.
+  * *Satisfies: Code runs without errors.*
+
+* **Task 4.2: Draft Presentation**
+
+  * **Slide 1:** Motivation (Why music & culture?)
+  * **Slide 2:** Workflow (Billboard scraping + Genius lyrics + sentiment analysis)
+  * **Slide 3:** Challenge (e.g., missing lyrics, preprocessing issues)
+  * **Slide 4:** Insight (e.g., “Lyric sentiment trends suggest music became more positive/negative over time”)
+  * *Satisfies: Presentation checklist.*
+
+---

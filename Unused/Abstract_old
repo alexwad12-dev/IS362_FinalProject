@@ -1,0 +1,88 @@
+IS362 Final Project Abstract Brainstorming and Processing
+
+
+### Phase 1: Setup & Data Acquisition (The "ET" in ETL)
+
+**Goal:** Get the raw data into a usable format.
+**Advice:** *Do not* try to scrape every single week of the Billboard charts. Use the **"Year-End"** charts for the last 10 years. This is a necessary "simplifying assumption" to keep your project manageable.
+
+* **Task 1.1: GitHub Repo Setup**
+    * Create a public repo.
+    * Create a `.gitignore` file (include your API keys/tokens here so you don't accidentally publish them!).
+    * *Satisfies: Reproducible code.*
+
+* **Task 1.2: Scrape Billboard Data (The "Skeleton")**
+    * Use `BeautifulSoup` or `pandas.read_html` to scrape the "Billboard Year-End Hot 100" for 2013–2023.
+    * Extract: Rank, Song Title, Artist.
+    * *Satisfies: Data Source #1 (Scraped web page).*
+
+* **Task 1.3: Spotify API Integration (The "Audio Features")**
+    * Register for a Spotify Developer account to get a Client ID/Secret.
+    * Use the `spotipy` library.
+    * Loop through your Billboard list to search for the Track ID, then fetch Audio Features (Valence, Energy).
+    * *Satisfies: Data Source #2 (Web API).*
+
+* **Task 1.4: Genius Lyrics (The "Sentiment")**
+    * *Note:* Scraping Genius can be tricky. Use the `lyricsgenius` library (wrapper) to make this easier.
+    * Fetch lyrics for the songs in your list.
+    * *Satisfies: Strengthening the "New Feature" requirement.*
+
+---
+
+### Phase 2: Transformation & Cleaning (The "T" in ETL)
+
+**Goal:** Turn raw JSON/HTML into a clean Pandas DataFrame.
+
+* **Task 2.1: The "New Feature" (Sentiment Analysis)**
+    * Use a Natural Language Processing (NLP) library not heavily covered in class (e.g., `TextBlob` or `NLTK` VADER).
+    * Run the lyrics through the analyzer to generate a "Lyric Polarity Score."
+    * *Satisfies: "One feature not covered in class."*
+
+* **Task 2.2: Data Transformation**
+    * Convert the 'Year' column to a proper Datetime object.
+    * Create a specific subset (e.g., Filter for only top 10 songs of each year vs. the rest).
+    * *Satisfies: At least one data transformation operation.*
+
+---
+
+### Phase 3: Analysis & Visualization (The "L" and Analysis)
+
+**Goal:** Prove your hypothesis and validate the data.
+
+* **Task 3.1: Data Validation Graphic**
+    * Create a histogram or boxplot of the "Valence" (musical positivity) scores.
+    * Check for outliers (e.g., is there a song with 0 valence?).
+    * *Satisfies: Graphic that describes/validates data.*
+
+* **Task 3.2: Aggregation**
+    * Group the data by `Year`. Calculate the **Mean** Valence and **Mean** Lyric Sentiment per year.
+    * *Satisfies: At least one grouping or aggregation.*
+
+* **Task 3.3: Conclusion Graphic**
+    * Plot a dual-axis line chart:
+        * Line A: Average Spotify Valence over time.
+        * Line B: Average Lyric Sentiment over time.
+    * Annotate significant cultural events on the timeline (e.g., "Pandemic Start").
+    * *Satisfies: Graphic that supports your conclusion.*
+
+* **Task 3.4: Statistical Analysis**
+    * Run a correlation (Pearson) between Audio Valence and Lyric Sentiment. Do sad-sounding songs actually have sad lyrics?
+    * *Satisfies: Statistical analysis supporting conclusion.*
+
+---
+
+### Phase 4: Presentation & Final Polish
+
+**Goal:** Ensure the Professor can run it and understands it.
+
+* **Task 4.1: The "Reproducibility" Check**
+    * Restart your Kernel and "Run All."
+    * **Crucial:** If scraping takes too long (e.g., >5 mins), save your clean data to a CSV, upload that CSV to GitHub, and have your notebook load the CSV from the raw GitHub URL. This prevents the code from timing out during grading.
+    * *Satisfies: Code runs without errors.*
+
+* **Task 4.2: Draft the Presentation**
+    * **Slide 1:** Motivation (Why music & culture?).
+    * **Slide 2:** The Workflow (Diagram of APIs/Scraping).
+    * **Slide 3:** The Challenge (e.g., "Matching Billboard song names to Spotify search results was hard because of spelling differences").
+    * **Slide 4:** The Insight (e.g., "Music became audibly sadder in 2020, but lyrics remained hopeful").
+    * *Satisfies: All Presentation checklist items.*
